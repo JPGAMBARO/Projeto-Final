@@ -1,7 +1,8 @@
 <?php
+    require "config/Conexao.php";
     class CategoriaModel{
-        function __construct($conexao){
-            $this->conexao = $conexao;
+        function __construct(){
+            $this->conexao = Conexao::getConnection();
         }
 
         function inserir($nome){
@@ -38,7 +39,7 @@
         function buscarPorId($id){
             $sql = "SELECT * FROM categoria WHERE idcategoria=?";
             $comando = $this->conexao->prepare($sql);
-            $comando->bind_param("i, $id");
+            $comando->bind_param("i", $id);
             if($comando->execute()){
                 $resultado = $comando->get_result();
                 return $resultado->fetch_assoc();
